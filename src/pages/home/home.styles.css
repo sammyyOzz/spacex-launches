@@ -1,0 +1,12 @@
+.home__filter-stack {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 10px 0;
+    margin-bottom: 30px;
+}
+
+@media(max-width: 600px) {
+    .home__filter-stack {
+        overflow-x: auto;
+    }
+}

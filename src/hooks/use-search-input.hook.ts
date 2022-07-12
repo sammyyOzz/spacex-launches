@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
 export function useSearchInput() {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState<string | null>('')
     const [inputValue, setInputValue] = useState('')
 
-    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
+    const handleValueChange = (e: any, newValue: string | null) => {
         setValue(newValue)
     }
 
-    const handleInputValueChange = (e: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
+    const handleInputValueChange = (e: any, newValue: string) => {
         setInputValue(newValue)
     }
 
@@ -17,5 +17,5 @@ export function useSearchInput() {
         handleValueChange,
         inputValue,
         handleInputValueChange
-    ]
+    ] as const
 }

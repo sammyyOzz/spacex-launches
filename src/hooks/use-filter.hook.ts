@@ -15,6 +15,6 @@ export function useFilter() {
     return [
         filter,
         handleClick
-    ]
+    ] as const
 
 }

@@ -1,12 +1,11 @@
-import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 export interface SearchInputProps {
-    value: string;
-    handleValueChange: () => void;
+    value: string | null;
+    handleValueChange: (event: any, newValue: string | null) => void;
     inputValue: string;
-    handleInputValueChange: () => void;
+    handleInputValueChange: (event: any, newValue: string) => void;
 }
 
 export function SearchInput({ 
