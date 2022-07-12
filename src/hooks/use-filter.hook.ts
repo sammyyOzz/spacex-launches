@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 
 export function useFilter() {
     const [filter, setFilter] = useState<string | null>(null)
 
-    const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleClick = (e: any) => {
         if (filter === e.target.textContent) {
             setFilter(null)
             return

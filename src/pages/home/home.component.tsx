@@ -10,35 +10,30 @@ import { useSelect } from '../../hooks/use-select.hook';
 
 import { MISSION_NAME, ROCKET_NAME, ROCKET_TYPE, searchFields } from '../../utils/constants';
 
-import { Grid } from '@mui/material';
+import { Button, Divider, Grid, Stack } from '@mui/material';
+
 import { Select } from '../../components/select/select.component';
 import { SearchInput } from '../../components/search-input/search-input.component';
+import { Filter } from '../../components/filter/filter.component';
+import { RenderLaunches } from '../../components/render-launches/render-launches.component';
+import { ListLaunches } from '../../components/list-launches/list-launches.component';
 
 
 const LIMIT = 10
 
 function Home() {
     //=================================================================================
-    // graphql and effect
+    // graphql
     //================================================================================= 
 
     const [getLaunches, { data, loading, error }] = useLazyQuery(SPACEX_QUERY);
-
-    useEffect(() => {
-        getLaunches({ variables: { limit: LIMIT } })
-    }, [])
 
     //=================================================================================
     // state
     //================================================================================= 
     
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [currentPage, setCurrentPage] = useState(1)
 
-
-    //=================================================================================
-    // hooks
-    //=================================================================================  
-    
     const [rocketNameFilter, setRocketNameFilter] = useFilter()
     const [rocketTypeFilter, setRocketTypeFilter] = useFilter()
     const [missionNameFilter, setMissionNameFilter] = useFilter()
@@ -52,6 +47,10 @@ function Home() {
 
     const [searchField, handleSearchFieldChange] = useSelect(searchFields[0])
 
+    //=================================================================================
+    // hooks
+    //=================================================================================  
+    
     const buildQuery = useCallback((field: string, filter: string | null) => {
         const result = searchField === field && searchValue 
             ? searchValue 
@@ -65,6 +64,10 @@ function Home() {
         mission_name: buildQuery(MISSION_NAME, missionNameFilter)
     }), [rocketNameFilter, rocketTypeFilter, missionNameFilter, buildQuery])
 
+
+    useEffect(() => {
+        getLaunches({ variables: { limit: LIMIT, find: queryValue } })
+    }, [getLaunches, queryValue])
 
     //=================================================================================
     // handlers
@@ -110,6 +113,81 @@ function Home() {
                     />
                 </Grid>
             </Grid>
+
+            <Stack 
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={{ xs: 1, sm: 2, md: 3 }}
+                divider={<Divider orientation="vertical" flexItem />}
+                className="home__filter-stack"
+            >
+                <Stack direction="row" spacing={1}>
+                    <Filter 
+                        label="Falcon 9" 
+                        filter={rocketNameFilter} 
+                        handleClick={setRocketNameFilter} 
+                    />
+                    <Filter 
+                        label="Falcon 1" 
+                        filter={rocketNameFilter} 
+                        handleClick={setRocketNameFilter} 
+                    />
+                    <Filter 
+                        label="Falcon Heavy" 
+                        filter={rocketNameFilter} 
+                        handleClick={setRocketNameFilter} 
+                    />
+                </Stack>
+
+                <Stack direction="row" spacing={1}>
+                    <Filter 
+                        label="v1.1" 
+                        filter={rocketTypeFilter} 
+                        handleClick={setRocketTypeFilter} 
+                    />
+                    <Filter 
+                        label="FT" 
+                        filter={rocketTypeFilter} 
+                        handleClick={setRocketTypeFilter} 
+                    />
+                    <Filter 
+                        label="Merlin A" 
+                        filter={rocketTypeFilter} 
+                        handleClick={setRocketTypeFilter} 
+                    />
+                </Stack>
+
+                <Stack direction="row" spacing={1}>
+                    <Filter 
+                        label="CASSIOPE" 
+                        filter={missionNameFilter} 
+                        handleClick={setMissionNameFilter} 
+                    />
+                    <Filter 
+                        label="FalconSat" 
+                        filter={missionNameFilter} 
+                        handleClick={setMissionNameFilter} 
+                    />
+                    <Filter 
+                        label="Jason 3" 
+                        filter={missionNameFilter} 
+                        handleClick={setMissionNameFilter} 
+                    />
+                </Stack>
+            </Stack>
+
+            <RenderLaunches loading={loading} error={error}>
+                { data?.launches?.length === 0
+                    ? <h2>No launches found</h2>
+                    : <ListLaunches launches={data?.launches ?? []} />
+                }
+            </RenderLaunches>
+
+            { data?.launches.length > 0 && (
+                <Stack spacing={2} direction="row">
+                    <Button variant="outlined" onClick={handlePreviousPage}>Previous</Button>
+                    <Button variant="outlined" onClick={handleNextPage}>Next</Button>
+                </Stack>
+            )}
         </>
     )
 }

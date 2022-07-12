@@ -2,8 +2,8 @@ import Chip from '@mui/material/Chip';
 
 export interface FilterProps {
     label: string;
-    handleClick: () => void;
-    filter: string;
+    handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+    filter: string | null;
 }
 
 export function Filter({ label, handleClick, filter }: FilterProps) {
