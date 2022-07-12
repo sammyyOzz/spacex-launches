@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 const LIMIT = 10
 
 function Home() {
-    const [getLaunches, { data, loading, error }] = useLazyQuery(SPACEX_QUERY);
-    console.log(data)
+    // const [getLaunches, { data, loading, error }] = useLazyQuery(SPACEX_QUERY);
+    // console.log(data)
 
-    useEffect(() => {
-        getLaunches({ variables: { limit: LIMIT } })
-    }, [])
+    // useEffect(() => {
+    //     getLaunches({ variables: { limit: LIMIT } })
+    // }, [])
 
     return (
         <div>
