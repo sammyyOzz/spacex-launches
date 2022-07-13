@@ -175,14 +175,11 @@ function Home() {
                 </Stack>
             </Stack>
 
-            <RenderLaunches loading={loading} error={error}>
-                { data?.launches?.length === 0
-                    ? <h2>No launches found</h2>
-                    : <ListLaunches launches={data?.launches ?? []} />
-                }
+            <RenderLaunches loading={loading} error={error} launches={data?.launches ?? []}>
+                <ListLaunches launches={data?.launches} />
             </RenderLaunches>
 
-            { data?.launches.length > 0 && (
+            { data?.launches.length === LIMIT && (
                 <Stack spacing={2} direction="row">
                     <Button variant="outlined" onClick={handlePreviousPage}>Previous</Button>
                     <Button variant="outlined" onClick={handleNextPage}>Next</Button>

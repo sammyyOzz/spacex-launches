@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+# SpaceX Search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project makes use of react alongside graphql to query the spaceX api.
 
-## Available Scripts
+## Usage
 
-In the project directory, you can run:
+In your desired location, run:
 
-### `npm start`
+### `git clone https://github.com/sammyyOzz/spacex-launches.git` or with ssh `git clone git@github.com:sammyyOzz/spacex-launches.git`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once its done, go into the project directory and run:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm install`
 
-### `npm test`
+When its done, open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Decisions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Upon querying the api, it returns a long list of items. Rendering all of these at once has an impact on the performance of the browser and can even cause it to crash, this is also expensive because it returns unnecessary results which the user may not need. This is easily solved by pagination of the results returned. 
+An alternative to pagination is to use a virtualized list whereby only the items visible to the user are rendered by the browser.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Images being rendered are loaded lazily with a custom component and this optimizes performance especially for long lists.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Components are kept small and simple. This ensures they handle a single task perfectly well and makes them reusable.
 
-### `npm run eject`
+Reusable state logic is handled with custom hooks to prevent duplicated code.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Note
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Due to the limitations of the api, searches made using the search input can only be conducted within one field at a time, the desired field to search through can be chosen with the select component which is labelled 'search by'.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The api does not return the total count of results from a query and this is required for proper pagination logic. This is something that can be worked on when using a proper api.

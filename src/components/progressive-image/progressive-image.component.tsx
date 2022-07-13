@@ -10,10 +10,18 @@ export interface ProgressiveImageProps {
 }
 
 
-export function ProgressiveImage({ placeholderSrc, src, alt, className, ...props }: ProgressiveImageProps) {
+export function ProgressiveImage({ 
+  placeholderSrc, 
+  src, 
+  alt, 
+  className, 
+  ...props 
+}: ProgressiveImageProps) {
   const [imgSrc, setImgSrc] = useState('');
 
-  const customClass = !imgSrc ? "progressive-image__loading" : "progressive-image__loaded";
+  const customClass = !imgSrc 
+    ? "progressive-image__loading" 
+    : "progressive-image__loaded";
 
   useEffect(() => {
     const img = new Image();
