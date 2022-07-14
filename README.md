@@ -4,13 +4,13 @@ This project makes use of react alongside graphql to query the spaceX api.
 
 ## Usage
 
-To clone this repository either with https or ssh, go to your desired location and run:
+To clone this repository, head over to your projects folder and run:
 
-### `git clone https://github.com/sammyyOzz/spacex-launches.git` or  `git clone git@github.com:sammyyOzz/spacex-launches.git`
-
-Once its done, go into the project directory and run:
-
-### `npm install`
+```bash
+git clone git@github.com:sammyyOzz/spacex-launches.git
+cd spacex-launches
+npm install
+```
 
 When its done, open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
