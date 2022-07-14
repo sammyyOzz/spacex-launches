@@ -4,9 +4,9 @@ This project makes use of react alongside graphql to query the spaceX api.
 
 ## Usage
 
-In your desired location, run:
+To clone this repository either with https or ssh, go to your desired location and run:
 
-### `git clone https://github.com/sammyyOzz/spacex-launches.git` or with ssh `git clone git@github.com:sammyyOzz/spacex-launches.git`
+### `git clone https://github.com/sammyyOzz/spacex-launches.git` or  `git clone git@github.com:sammyyOzz/spacex-launches.git`
 
 Once its done, go into the project directory and run:
 
@@ -19,6 +19,8 @@ When its done, open [http://localhost:3000](http://localhost:3000) to view it in
 
 Upon querying the api, it returns a long list of items. Rendering all of these at once has an impact on the performance of the browser and can even cause it to crash, this is also expensive because it returns unnecessary results which the user may not need. This is easily solved by pagination of the results returned. 
 An alternative to pagination is to use a virtualized list whereby only the items visible to the user are rendered by the browser.
+
+The component responsible for rendering the long list of items ("list-launches.component.tsx") has been memoized with React.memo, this is important  for performance because it prevents unnecessary rerendering of its children.
 
 Images being rendered are loaded lazily with a custom component and this optimizes performance especially for long lists.
 
